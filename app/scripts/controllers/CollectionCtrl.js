@@ -7,5 +7,5 @@
   }
   angular
       .module('blocJams')
-      /contoller('CollectionCtrl', CollectionCtrl);
+      .controller('CollectionCtrl', CollectionCtrl);
 })();

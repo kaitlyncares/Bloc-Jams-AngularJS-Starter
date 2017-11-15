@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="blocJams">
     <head>
         <title>Bloc Jams</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,11 +14,11 @@
     </head>
     <body class="landing">
         <nav class="navbar">
-            <a ui-sref="index.html" class="logo">
+            <a ui-sref="landing" class="logo">
                 <img src="assets/images/bloc_jams_logo.png" alt="bloc jams logo">
             </a>
             <div class="links-container">
-                <a ui-sref="collection.html" class="navbar-link">Collection</a>
+                <a ui-sref="collection" class="navbar-link">Collection</a>
             </div>
         </nav>
 
@@ -29,5 +29,6 @@
         <script src="/scripts/fixtures.js"></script>
         <script src="/scripts/controllers/LandingCtrl.js"></script>
         <script src="/scripts/controllers/CollectionCtrl.js"></script>
+        <script src="/scripts/controllers/AlbumCtrl.js"></script>
     </body>
 </html>
