@@ -1,6 +1,7 @@
-(function ()  {
-  function Fixtures(){
-    var Fixtures = {};
+(function() {
+     function Fixtures() {
+         var Fixtures = {};
+
     var albumPicasso = {
        title: 'The Colors',
        artist: 'Pablo Picasso',
@@ -32,9 +33,16 @@
     };
 
     Fixtures.getAlbum = function() {
-      return albumPicasso;
-    };
+         return albumPicasso;
+     };
 
+    Fixtures.getCollection = function(numberOfAlbums){
+      var results = [];
+        for(var i = 0; i < numberOfAlbums; i++){
+            results.push(albumPicasso);
+        }
+        return results;
+     };
     return Fixtures;
   }
   angular
