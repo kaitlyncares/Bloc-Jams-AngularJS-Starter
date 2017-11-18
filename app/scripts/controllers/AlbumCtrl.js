@@ -1,6 +1,6 @@
 (function (){
   function AlbumCtrl(){
-      this.albumData = fixtures
+      this.albumData = angular.copy(albumPicasso);
   }
 
   angular
