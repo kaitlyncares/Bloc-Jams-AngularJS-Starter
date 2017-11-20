@@ -45,7 +45,16 @@
      var playSong = function(song) {
        currentBuzzObject.play();
        song.playing = true;
-     }
+     };
+/**
+@function stopSong
+@desc stops audio file of currentBuzzObject
+@param {object} song
+*/
+     var stopSong = function(song) {
+       currentBuzzObject.stop();
+       song.playing = null;
+     };
 /**
 @function getSongIndex
 @desc gets index of the chosen sing from the array on the current Album
@@ -104,6 +113,23 @@
           setSong(song);
           playSong(song);
       }
+  };
+/**
+@function SongPlayer.next
+@desc stops current song playing and advances to next song. will stop if there are no songs to advance to.
+@param {object} song
+*/
+  SongPlayer.next = function() {
+    var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+    currentSongIndex++;
+
+    if(currentSongIndex > currentAlbum.songs.length -1 ){
+      stopSong(SongPlayer.currentSong);
+    }else{
+      var song = currentAlbum.songs[currentSongIndex];
+      setSong(song);
+      playSong(song);
+    }
   };
 
 
