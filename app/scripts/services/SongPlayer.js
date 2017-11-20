@@ -1,16 +1,21 @@
+
+
 (function () {
-  function SongPlayer(){
+  function SongPlayer(Fixtures){
     var SongPlayer = {};
-/**
-@desc audio file currently playing
+
+    /**
+@desc stores album info
 @type {object}
-*/
-    var currentSong = null;
+    */
+    var currentAlbum = Fixtures.getAlbum();
+
 
     /**
 * @desc Buzz object audio file
 * @type {Object}
 */
+
     var currentBuzzObject = null;
 
 
@@ -22,7 +27,7 @@
     var setSong = function(song) {
         if (currentBuzzObject) {
             currentBuzzObject.stop();
-            currentSong.playing = null;
+            SongPlayer.currentSong.playing = null;
         }
 
         currentBuzzObject = new buzz.sound(song.audioUrl, {
@@ -30,7 +35,7 @@
             preload: true
         });
 
-        currentSong = song;
+        SongPlayer.currentSong = song;
      };
 /**
 @function playSong
@@ -41,7 +46,20 @@
        currentBuzzObject.play();
        song.playing = true;
      }
+/**
+@function getSongIndex
+@desc gets index of the chosen sing from the array on the current Album
+@param {object} song
+*/
+     var getSongIndex = function(song) {
+        return currentAlbum.songs.indexOf(song);
+     };
 
+     /**
+     @desc audio file currently playing
+     @type {object}
+     */
+     SongPlayer.currentSong = null;
 
 /**
 @function SongPlayer.play
@@ -49,10 +67,11 @@
 @param {object} song
 */
     SongPlayer.play = function(song) {
-        if(currentSong !== song){
-          setSong(song);
-          playSong(song);
-        } else if (currentSong === song) {
+        song = song || SongPlayer.currentSong;
+        if(SongPlayer.currentSong !== song){
+            setSong(song);
+            playSong(song);
+        } else if (SongPlayer.currentSong === song) {
             if (currentBuzzObject.isPaused()) {
                 playSong(song);
            }
@@ -65,9 +84,27 @@
     @param {object} song
     */
       SongPlayer.pause = function(song) {
+        song = song || SongPlayer.currentSong;
        currentBuzzObject.pause();
        song.playing = false;
    };
+/**
+@function SongPlayer.previous
+@desc stops current song playing and returns to previous song. will stop if there is no previous song.
+@param {object} song
+*/
+    SongPlayer.previous = function() {
+        var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+          currentSongIndex--;
+
+        if (currentSongIndex < 0) {
+          stopSong(SongPlayer.currentSong);
+      } else {
+          var song = currentAlbum.songs[currentSongIndex];
+          setSong(song);
+          playSong(song);
+      }
+  };
 
 
     return SongPlayer;
@@ -75,5 +112,5 @@
 
   angular
       .module('blocJams')
-      .factory('SongPlayer', SongPlayer);
+      .factory('SongPlayer', ['Fixtures', SongPlayer]);
 })();
