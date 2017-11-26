@@ -51,6 +51,8 @@
             });
         });
 
+        currentBuzzObject.bind('ended', SongPlayer.next);
+
         SongPlayer.currentSong = song;
      };
 /**
@@ -144,7 +146,7 @@
     var currentSongIndex = getSongIndex(SongPlayer.currentSong);
     currentSongIndex++;
 
-    if(currentSongIndex > currentAlbum.songs.length -1 ){
+    if( currentSongIndex > currentAlbum.songs.length -1 ){
       stopSong(SongPlayer.currentSong);
     }else{
       var song = currentAlbum.songs[currentSongIndex];
