@@ -4,6 +4,8 @@
   function SongPlayer($rootScope, Fixtures){
     var SongPlayer = {};
 
+    //Private Attributes
+
     /**
 @desc stores album info
 @type {object}
@@ -19,6 +21,14 @@
     var currentBuzzObject = null;
 
 
+
+/**
+@desc holds value of the volume (default is 40)
+@type {number}
+*/
+    SongPlayer.volume = 40;
+
+//Private functions
     /**
     * @function setSong
     * @desc Stops currently playing song and loads new audio file as currentBuzzObject
@@ -146,7 +156,8 @@
 /**
 * @function setCurrentTime
 * @desc  Set current time (in seconds) of currently playing song
-* @param {number} time*/
+* @param {number} time
+*/
 
   SongPlayer.setCurrentTime = function(time){
       if (currentBuzzObject) {
@@ -154,6 +165,17 @@
       }
   };
 
+/**
+@function setVolume
+@desc changes volume
+@param {number} volume
+*/
+  SongPlayer.setVolume = function(volume){
+    if(currentBuzzObject){
+      currentBuzzObject.setVolume(volume);
+    }
+    SongPlayer.volume = volume;
+  };
     return SongPlayer;
   }
 
